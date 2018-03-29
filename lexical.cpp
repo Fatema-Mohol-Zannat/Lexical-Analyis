@@ -83,11 +83,20 @@ int checkKeyword(string s){
             token[t][1]="id";
             token[t][2]="        pointer to symbol table entry";
             ///For symbolTable
-            symbolTbl[symbolindex][0]=s;
-            symbolTbl[symbolindex][1]="id";
-            symbolTbl[symbolindex][2]=token[t-2][]
-            symbolTbl[symbolindex][3]=
-
+            int check=0;
+            for(int i=0;i<symbolindex;i++){
+                if(s == symbolTbl[i][0]){
+                    check=1;
+                    break;
+                }
+            }
+            if(check==0){
+                symbolTbl[symbolindex][0]=s;
+                symbolTbl[symbolindex][1]="id";
+                symbolTbl[symbolindex][2]=lastkeyword;
+                symbolTbl[symbolindex][3]=symbolindex;
+                symbolindex++;
+            }
         }
     }
     t++;
@@ -160,6 +169,13 @@ int main(){
     cout<<"-----------------------------------------------------------------------"<<"\n";
     for(int i=0;i<t;i++){
         cout<<" "<<token[i][0]<<"\t\t"<<token[i][1]<<"\t\t"<<token[i][2]<<endl;
+    }
+
+
+    cout<<" Symbol"<<"           "<<"Token"<<"              "<<"Data Type"<<"        "<<"Pointer to symbol table entry"<<endl;
+    cout<<"-----------------------------------------------------------------------"<<"\n";
+    for(int i=0;i<t;i++){
+        cout<<" "<<symbolTbl[i][0]<<"\t\t"<<symbolTbl[i][1]<<"\t\t"<<symbolTbl[i][2]<<"\t\t"<<symbolTbl[i][3]<<endl;
     }
 
     in.close();
