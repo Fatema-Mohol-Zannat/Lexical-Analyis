@@ -29,43 +29,46 @@ int checkSpecialSymbol(char s){
 }
 int checkOperator(string s){
     int ans=0;
-    string operators[100]={"+","-","*","/","=","++","--"};
-    for(int i=0;i<8;i++){
+    string operators[100]={"+","-","*","/","=","++","--","==","!=",">","<",">=","<=","&&","||","!"};
+    for(int i=0;i<16;i++){
         if(s==operators[i]){
-            token[t][0]=s;
-            token[t][1]="operator";
-            if(s=="+") token[t][2]="add";
-            else if(s=="-") token[t][2]="subtract";
-            else if(s=="*") token[t][2]="multiply";
-            else if(s=="/") token[t][2]="divide";
-            else if(s=="=") token[t][2]="assignment";
-            else if(s=="++") token[t][2]="increment";
-            else if(s=="--") token[t][2]="decrement";
-            else if(s=="==") token[t][2]="equal";
-            else if(s=="!=") token[t][2]="not equal";
-            else if(s==">") token[t][2]="greater than";
-            else if(s=="<") token[t][2]="less than";
-            else if(s==">=") token[t][2]="greater equal";
-            else if(s=="<=") token[t][2]="less equal";
-            else if(s=="&&") token[t][2]="and";
-            else if(s=="||") token[t][2]="or";
-            else if(s=="!") token[t][2]="not";
-            t++;
             ans=1;
             break;
         }
     }
     return ans;
+}
+void assignOperator(string s){
+
+    token[t][0]=s;
+    token[t][1]="operator";
+    if(s=="+") token[t][2]="add";
+    else if(s=="-") token[t][2]="subtract";
+    else if(s=="*") token[t][2]="multiply";
+    else if(s=="/") token[t][2]="divide";
+    else if(s=="=") token[t][2]="assignment";
+    else if(s=="++") token[t][2]="increment";
+    else if(s=="--") token[t][2]="decrement";
+    else if(s=="==") token[t][2]="equal";
+    else if(s=="!=") token[t][2]="not equal";
+    else if(s==">") token[t][2]="greater than";
+    else if(s=="<") token[t][2]="less than";
+    else if(s==">=") token[t][2]="greater equal";
+    else if(s=="<=") token[t][2]="less equal";
+    else if(s=="&&") token[t][2]="and";
+    else if(s=="||") token[t][2]="or";
+    else if(s=="!") token[t][2]="not";
+    t++;
 
 }
-int checkKeyword(string s){
+int checkKeywordOrOthers(string s){
     int ans=0;
 
     string keywords[100]={"int","float","double","return","for","while","do","break","continue",
-    "if","else","else if","void","goto","auto","const","default","enum","extern","long","register",
+    "if","else","void","goto","auto","const","default","enum","extern","long","register",
     "short","signed","sizeof","static","struct","switch","typedef","union","unsigned","volatile"};
 
-    for(int i=0;i<8;i++){
+    for(int i=0;i<30;i++){
         if(s==keywords[i]){
             token[t][0]=s;
             token[t][1]=s;
@@ -149,19 +152,41 @@ int main(){
     int takei=0;
     j=0;
 
-    cout<<"----- Input Scanned -----"<<endl;
+    cout<<"----- Input Scanned -----\n"<<endl;
     while(clearSTART[j] != '\0'){
-        cout<<clearSTART[j];
+        //cout<<clearSTART[j];
 
         int ans=checkSpecialSymbol(clearSTART[j]);
         string si="";
         si+=clearSTART[j];
-        if(ans==0) ans=checkOperator(si);
+        if(ans==0){
+
+            ans=checkOperator(si);
+            if(ans==1){
+                cout<<"IN"<<endl;
+                string saveOperator="";
+                saveOperator+=si;
+                string si2="";
+                //si2+=clearSTART[j+1];
+                saveOperator+=clearSTART[j+1];
+                //saveOperator+=checkOperator(saveOperator);
+                cout<<"\nOp : "<<saveOperator;
+                ans=checkOperator(saveOperator);
+                if(ans==1){
+                    assignOperator(saveOperator);
+                    j++;
+                }
+                else assignOperator(si);
+                ans=1;
+                saveOperator.clear();
+            }
+
+        }
 
 
         if(isspace(clearSTART[j]) || ans==1){
             //cout<<take<<endl;
-            if(!take.empty())   ans=checkKeyword(take);
+            if(!take.empty())   ans=checkKeywordOrOthers(take);
             take.clear();
 
         }
