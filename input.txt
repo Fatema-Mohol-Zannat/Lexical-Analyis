@@ -1,5 +1,7 @@
 int main(){
     int a,b,sum;
+    float c,d;
     sum=a+b;
+    if(sum>=0) c=sum;
     return 0;
 }
