@@ -2,8 +2,8 @@
 #include<fstream>
 
 using namespace std;
-string token[100][100],take="";
-int t=0;
+string token[100][100],take="",symbolTbl[100][100],lastkeyword;
+int t=0,symbolindex=0;
 int checkSpecialSymbol(char s){
     int ans=0;
     char specialSymbol[100]={'(',')','{','}','[',']',',',';'};
@@ -60,12 +60,14 @@ int checkOperator(string s){
 }
 int checkKeyword(string s){
     int ans=0;
+
     string keywords[100]={"int","float","double","main","return","for","while","do","break","continue","if","else","else if"};
     for(int i=0;i<8;i++){
         if(s==keywords[i]){
             token[t][0]=s;
             token[t][1]=s;
             token[t][2]="        -";
+            lastkeyword=s;
             ans=1;
             break;
         }
@@ -80,6 +82,11 @@ int checkKeyword(string s){
             token[t][0]=s;
             token[t][1]="id";
             token[t][2]="        pointer to symbol table entry";
+            ///For symbolTable
+            symbolTbl[symbolindex][0]=s;
+            symbolTbl[symbolindex][1]="id";
+            symbolTbl[symbolindex][2]=token[t-2][]
+            symbolTbl[symbolindex][3]=
 
         }
     }
