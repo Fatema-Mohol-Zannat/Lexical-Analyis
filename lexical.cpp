@@ -149,28 +149,23 @@ int main(){
         else break;
 
     }
+    clearSTART[clearSTARTindex]='\0';
     int takei=0;
     j=0;
 
     cout<<"----- Input Scanned -----\n"<<endl;
     while(clearSTART[j] != '\0'){
-        //cout<<clearSTART[j];
+        cout<<clearSTART[j];
 
         int ans=checkSpecialSymbol(clearSTART[j]);
         string si="";
         si+=clearSTART[j];
         if(ans==0){
-
             ans=checkOperator(si);
             if(ans==1){
-                cout<<"IN"<<endl;
                 string saveOperator="";
                 saveOperator+=si;
-                string si2="";
-                //si2+=clearSTART[j+1];
                 saveOperator+=clearSTART[j+1];
-                //saveOperator+=checkOperator(saveOperator);
-                cout<<"\nOp : "<<saveOperator;
                 ans=checkOperator(saveOperator);
                 if(ans==1){
                     assignOperator(saveOperator);
@@ -180,19 +175,15 @@ int main(){
                 ans=1;
                 saveOperator.clear();
             }
-
         }
-
 
         if(isspace(clearSTART[j]) || ans==1){
             //cout<<take<<endl;
             if(!take.empty())   ans=checkKeywordOrOthers(take);
             take.clear();
-
         }
         else if(ans==0){
             take+=clearSTART[j];
-
         }
         j++;
     }
