@@ -6,7 +6,7 @@ string token[100][100],take="",symbolTbl[100][100],lastkeyword;
 int t=0,symbolindex=0;
 int checkSpecialSymbol(char s){
     int ans=0;
-    char specialSymbol[100]={'(',')','{','}','[',']',',',';'};
+    char specialSymbol[10]={'(',')','{','}','[',']',',',';'};
     for(int i=0;i<8;i++){
         if(s==specialSymbol[i]){
             token[t][0]=s;
