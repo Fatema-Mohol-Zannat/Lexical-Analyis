@@ -61,7 +61,10 @@ int checkOperator(string s){
 int checkKeyword(string s){
     int ans=0;
 
-    string keywords[100]={"int","float","double","main","return","for","while","do","break","continue","if","else","else if"};
+    string keywords[100]={"int","float","double","return","for","while","do","break","continue",
+    "if","else","else if","void","goto","auto","const","default","enum","extern","long","register",
+    "short","signed","sizeof","static","struct","switch","typedef","union","unsigned","volatile"};
+
     for(int i=0;i<8;i++){
         if(s==keywords[i]){
             token[t][0]=s;
@@ -94,7 +97,12 @@ int checkKeyword(string s){
                 symbolTbl[symbolindex][0]=s;
                 symbolTbl[symbolindex][1]="id";
                 symbolTbl[symbolindex][2]=lastkeyword;
-                symbolTbl[symbolindex][3]=symbolindex;
+
+                ostringstream convert;   // stream used for the conversion
+                convert <<symbolindex ;      // insert the textual representation of 'Number' in the characters in the stream
+                string result = convert.str();
+
+                symbolTbl[symbolindex][3]=result;
                 symbolindex++;
             }
         }
@@ -164,15 +172,18 @@ int main(){
         j++;
     }
 
-    cout<<"\n\n----- OUTPUT -----\nTokens : "<<endl;
+    cout<<"\n\n----- OUTPUT -----\n\nTokens Table: "<<endl;
+    cout<<"-----------------------------------------------------------------------"<<endl;
     cout<<" Lexemes"<<"           "<<"Token Name"<<"              "<<"Attribute Value"<<"  "<<endl;
     cout<<"-----------------------------------------------------------------------"<<"\n";
     for(int i=0;i<t;i++){
         cout<<" "<<token[i][0]<<"\t\t"<<token[i][1]<<"\t\t"<<token[i][2]<<endl;
     }
 
+    cout<<"\nSymbol Table :"<<endl;
 
-    cout<<" Symbol"<<"           "<<"Token"<<"              "<<"Data Type"<<"        "<<"Pointer to symbol table entry"<<endl;
+    cout<<"-----------------------------------------------------------------------"<<endl;
+    cout<<" Symbol"<<"        "<<"Token"<<"          "<<"Data Type"<<"   "<<"Pointer to symbol table entry"<<endl;
     cout<<"-----------------------------------------------------------------------"<<"\n";
     for(int i=0;i<t;i++){
         cout<<" "<<symbolTbl[i][0]<<"\t\t"<<symbolTbl[i][1]<<"\t\t"<<symbolTbl[i][2]<<"\t\t"<<symbolTbl[i][3]<<endl;
