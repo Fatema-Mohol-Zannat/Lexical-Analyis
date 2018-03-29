@@ -29,7 +29,7 @@ int checkSpecialSymbol(char s){
 }
 int checkOperator(string s){
     int ans=0;
-    string operators[100]={"+","-","*","/","=","++","--","==","!=",">","<",">=","<=","&&","||","!"};
+    string operators[20]={"+","-","*","/","=","++","--","==","!=",">","<",">=","<=","&&","||","!"};
     for(int i=0;i<16;i++){
         if(s==operators[i]){
             ans=1;
@@ -64,7 +64,7 @@ void assignOperator(string s){
 int checkKeywordOrOthers(string s){
     int ans=0;
 
-    string keywords[100]={"int","float","double","return","for","while","do","break","continue",
+    string keywords[40]={"int","float","double","return","for","while","do","break","continue",
     "if","else","void","goto","auto","const","default","enum","extern","long","register",
     "short","signed","sizeof","static","struct","switch","typedef","union","unsigned","volatile"};
 
