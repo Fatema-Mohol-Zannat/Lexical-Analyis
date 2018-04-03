@@ -136,6 +136,13 @@ int main(){
                             j++;
                             continue;
                         }
+
+                }
+                ///Remove Comments
+                if(START[j]== '/'){
+                    //cout<<"IN"<<endl;
+                    if(START[j+1]=='/') break;
+
                 }
                 clearSTART[clearSTARTindex]=START[j];
                 clearSTARTindex++;
