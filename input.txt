@@ -1,5 +1,5 @@
 int main(){
-    int a,b,sum;
+    int a,b,sum; // declare some variables
     float c,d;
     sum=a+b;
     if(sum>=0) c=sum;
