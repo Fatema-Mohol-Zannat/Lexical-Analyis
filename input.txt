@@ -2,6 +2,7 @@ int main(){
     int a,b,sum; // declare some variables
     float c,d;
     sum=a+b;
+    printf("Hello");
     if(sum>=0) c=sum;
     return 0;
 }
