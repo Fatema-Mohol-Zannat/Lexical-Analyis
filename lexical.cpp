@@ -2,7 +2,7 @@
 #include<fstream>
 
 using namespace std;
-string token[100][100],take="",symbolTbl[100][100],lastkeyword;
+string token[40][40],take="",symbolTbl[40][40],lastkeyword;
 int t=0,symbolindex=0;
 int checkSpecialSymbol(char s){
     int ans=0;
@@ -19,6 +19,10 @@ int checkSpecialSymbol(char s){
             else if(s==']') token[t][2]="right third braces";
             else if(s==',') token[t][2]="comma";
             else if(s==';') token[t][2]="semicolon";
+            else if(s=='"'){
+                token[t][2]="Double Quotation";
+                cout<<"OK"<<endl;
+            }
             t++;
             ans=1;
             break;
@@ -64,7 +68,7 @@ void assignOperator(string s){
 int checkKeywordOrOthers(string s){
     int ans=0;
 
-    string keywords[40]={"int","float","double","return","for","while","do","break","continue",
+    string keywords[30]={"int","float","double","return","for","while","do","break","continue",
     "if","else","void","goto","auto","const","default","enum","extern","long","register",
     "short","signed","sizeof","static","struct","switch","typedef","union","unsigned","volatile"};
 
@@ -77,6 +81,14 @@ int checkKeywordOrOthers(string s){
             ans=1;
             break;
         }
+    }
+    ///For String
+    if(s[0]=='"'){
+        token[t][0]=s;
+        token[t][1]="String";
+        token[t][2]="constant";
+
+        ans=1;
     }
     if(ans==0){
         if(s[0]=='0' || s[0]=='1' || s[0]=='2' || s[0]=='3' || s[0]=='4' || s[0]=='5' || s[0]=='6' || s[0]=='7' || s[0]=='8' || s[0]=='9'){
@@ -97,9 +109,19 @@ int checkKeywordOrOthers(string s){
                 }
             }
             if(check==0){
+                string otherID[10]={"main","printf","scanf"};
+                int r=0;
                 symbolTbl[symbolindex][0]=s;
                 symbolTbl[symbolindex][1]="id";
-                symbolTbl[symbolindex][2]=lastkeyword;
+                for(int i=0;i<3;i++){
+                    if(s==otherID[i]){
+                        r=1;
+                        break;
+                    }
+                }
+                if(r==0)
+                    symbolTbl[symbolindex][2]=lastkeyword;
+                else symbolTbl[symbolindex][2]="-";
 
                 ostringstream convert;   // stream used for the conversion
                 convert <<symbolindex ;      // insert the textual representation of 'Number' in the characters in the stream
